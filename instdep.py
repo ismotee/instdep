@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import fileinput
 import subprocess
 
@@ -25,31 +26,26 @@ class client:
 			print [self.program_name] + self.args + [repo]			
 			out = subprocess.check_output([self.program_name] + self.args + [repo])
 			print out
-lines = []
-clients = []
-first = True
+if __name__ == "__main__":
+	lines = []
+	clients = []
+	first = True
 
-for line in fileinput.input():
+	for line in fileinput.input():
 
-	stripped = line.strip()
-	if stripped:
-		if not stripped[0] == '#':
-			if stripped[0] == '=':
-				if first == False:
-					clients.append(current_client)
-				current_client = client(stripped[1:])
-				first = False
-			elif stripped[0] == '+':
-				current_client.add_arg(stripped[1:])
-			else:
-				current_client.add_repo(stripped)
-clients.append(current_client)
+		stripped = line.strip()
+		if stripped:
+			if not stripped[0] == '#':
+				if stripped[0] == '=':
+					if first == False:
+						clients.append(current_client)
+					current_client = client(stripped[1:])
+					first = False
+				elif stripped[0] == '+':
+					current_client.add_arg(stripped[1:])
+				else:
+					current_client.add_repo(stripped)
+	clients.append(current_client)
 
-for cli in clients:
-	cli.execute()
-	
-
-#with open('dependencies.txt', 'r') as infile:
-#	data = infile.read()
-#lines = data.splitlines()
-
+	for cli in clients:
+		cli.execute()
