@@ -15,15 +15,11 @@ run: "python instdep.py [text file]"
 
 # example of the text file
 
-=git
+  =git
+  +clone
+  https://github.com/ismotee/instdep.git
 
-+clone
-
-https://github.com/ismotee/instdep.git
-
-
-=pip
-
-+install
-
-pockets
+  =pip
+  +install
+  pockets
+  black
